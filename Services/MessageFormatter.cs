@@ -18,6 +18,6 @@ public class MessageFormatter
         if (string.IsNullOrWhiteSpace(body))
             return body;
 
-        return body.Replace(studentSurname, $"[student.suname]{studentSurname}[/student.suname]");
+        return body.Replace(studentSurname, $"[student.suname] {studentSurname} [/student.suname] ");
     }
 }
