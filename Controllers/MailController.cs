@@ -24,7 +24,7 @@ public class MailController : ControllerBase
     [HttpPost("send")]
     public async Task<IActionResult> SendMail([FromBody] SendMailRequest request)
     {
-        // Odczyd danych z tokenu (Claims)
+        // Odczyt danych z tokenu (Claims)
         var appId = User.FindFirstValue("appId") ?? string.Empty;
         var appName = User.FindFirstValue("appName") ?? string.Empty;
 
