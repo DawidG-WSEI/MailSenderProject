@@ -1,0 +1,16 @@
+{
+  "name": "mailsender-webclient",
+  "private": true,
+  "type": "module",
+  "scripts":{
+    "generate-ts": "npx openapi-typescript .\\openapi\\openapi.json -o .\\src\\openapi-types.ts"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.12.2"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.5.0",
+    "typescript": "^5.5.4",
+    "serve": "14.2.6"
+  }
+}
