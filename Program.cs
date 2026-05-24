@@ -15,7 +15,28 @@ builder.Services.AddScoped<MessageFormatter>();
 builder.Services.AddHttpClient<IMailProvider, BrevoMailProvider>();
 
 builder.Services.AddControllers();
+// KOD WYGENEROWANY BY WALCZYĆ Z CORSEM wygenerowany na podstawie zdjęcia (model GPT Codex 5.2)
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("LocalDevCors", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:3000",
+                "http://localhost:5173",
+                "http://localhost:5500",
+                "http://localhost:8080",
+                "http://127.0.0.1:3000",
+                "http://127.0.0.1:5173",
+                "http://127.0.0.1:5500",
+                "http://127.0.0.1:8080"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+// KONIEC KODU GENEROWANEGO PRZECIW CORSOWI
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -87,6 +108,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Kod przeciw CORS
+app.UseCors("LocalDevCors");
+// Koniec kodu przeciw CORS
 
 // UWAGA: Kolejność tych linii jest BARDZO WAŻNA!
 app.UseAuthentication(); // Sprawdza kim jesteś (Authentication)...
