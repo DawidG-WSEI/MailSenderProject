@@ -41,3 +41,10 @@ Aby uruchomić projekt na swoim komputerze, potrzebujesz:
 * **Przetwarzanie wiadomości:** Automatyczne formatowanie tematu oraz oznaczanie nazwiska w treści.
 * **Bezpieczeństwo:** Oddzielenie wrażliwych danych (klucze API) od kodu źródłowego za pomocą mechanizmu *User Secrets*.
 
+## Web Client (4.0)
+
+```ps1
+cd ./WebClient
+```
+
+I czytaj readme.md
