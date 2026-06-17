@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MailSender.Models.Requests;
 using MailSender.Models.Responses;
-using MailSender.Services;
+using MailSender.Application.Interfaces;
+using MailSender.Application.Services;
 
 namespace MailSender.Controllers;
 
@@ -12,10 +13,10 @@ namespace MailSender.Controllers;
 [Authorize] // status 401 jeśli token się nie zgadza
 public class MailController : ControllerBase
 {
-    private readonly IMailProvider _mailProvider;
+    private readonly IMailSenderProvider _mailProvider;
     private readonly MessageFormatter _messageFormatter;
 
-    public MailController(IMailProvider mailProvider, MessageFormatter messageFormatter)
+    public MailController(IMailSenderProvider mailProvider, MessageFormatter messageFormatter)
     {
         _mailProvider = mailProvider;
         _messageFormatter = messageFormatter;
@@ -56,4 +57,3 @@ public class MailController : ControllerBase
     }
 
 }
-

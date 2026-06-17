@@ -48,3 +48,48 @@ cd ./WebClient
 ```
 
 I czytaj readme.md
+
+## Mailtrap Email Sandbox i podział na warstwy clean architecture (4.5)
+
+W wersji 4.5 struktura projektu została uporządkowana zgodnie z założeniami architektury warstwowej:
+
+- folder `Application` zawiera interfejs providera oraz logikę formatowania wiadomości,
+- folder `Infrastructure` zawiera pliki implementacje z dostawcami,
+- kontrolery korzystają z interfejsu `IMailProvider`, dzięki czemu nie są bezpośrednio
+  zależne od konkretnego dostawcy.
+
+Dodano plik `MailtrapMailProvider.cs`, a domyślnym dostawcą wiadomości jest
+obecnie Mailtrap Email Sandbox.
+Wiadomości wysłane przez Mailtrap Sandbox nie trafiają do prawdziwej skrzynki
+odbiorcy. Można je zobaczyć po zalogowaniu do skrzynki Email Sandbox w Mailtrap.
+
+### Konfiguracja Mailtrap
+
+1. Załóż konto w serwisie Mailtrap.
+2. Wygeneruj token API.
+3. W sekcji **Email Sandbox** utwórz testowy inbox.
+4. W zakładce **Integrations** odszukaj identyfikator `InboxId`.
+5. Dodaj token API oraz identyfikator inboxa do lokalnych sekretów projektu:
+
+```bash
+dotnet user-secrets set "Mailtrap:ApiToken" "TWÓJ_TOKEN_API"
+dotnet user-secrets set "Mailtrap:InboxId" "TWOJE_INBOX_ID"
+```
+
+Po uruchomieniu aplikacji wiadomości można wysyłać przez endpoint `POST /mail/send`.
+Wynik wysyłki będzie widoczny po zalogowaniu do wybranego inboxa w Mailtrap.
+
+### Wybór providera
+
+Aktywny provider jest rejestrowany w kontenerze Dependency Injection w pliku
+`Program.cs`. Domyślnie używany jest Mailtrap:
+
+```csharp
+builder.Services.AddHttpClient<IMailProvider, MailtrapMailProvider>();
+```
+
+Aby ponownie używać Brevo, należy zamienić rejestrowaną implementację:
+
+```csharp
+builder.Services.AddHttpClient<IMailProvider, BrevoMailProvider>();
+```
