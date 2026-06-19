@@ -4,7 +4,9 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MailSender.Configuration;
-using MailSender.Services;
+using MailSender.Application.Interfaces;
+using MailSender.Application.Services;
+using MailSender.Infrastructure.MailProviders;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<MessageFormatter>();
-builder.Services.AddHttpClient<IMailProvider, BrevoMailProvider>();
+builder.Services.AddHttpClient<IMailSenderProvider, MailtrapMailProvider>();
 
 builder.Services.AddControllers();
 // KOD WYGENEROWANY BY WALCZYĆ Z CORSEM wygenerowany na podstawie zdjęcia (model GPT Codex 5.2)
