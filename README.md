@@ -23,7 +23,7 @@ Aby uruchomić projekt na swoim komputerze, potrzebujesz:
    dotnet user-secrets init
    dotnet user-secrets set "Brevo:ApiKey" "TWÓJ_KLUCZ_API"
    ```
-4. W pliku `BrevoMailProvide.cs` w metodzie `SendEmailAsync()` zmień adres email na ten, który został użyty do rejestracji w **Brevo**.
+4. W pliku `BrevoMailProvider.cs` w metodzie `SendEmailAsync()` zmień adres email na ten, który został użyty do rejestracji w **Brevo**.
 5. W pliku `MessageFormatter.cs` w metodzie `FormatBody()` zmień nazwisko na swoje - takie są wymagania projektu.
 
 
